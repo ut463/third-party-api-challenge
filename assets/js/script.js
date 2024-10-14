@@ -14,6 +14,8 @@ function generateTaskId() {
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
+  const taskList = JSON.parse(localStorage.getItem('tasks'))
+  
   const taskCard = $('<div>')
     .addClass('card task-card draggable my-3')
     .attr('data-task-id', task.id);
@@ -26,6 +28,12 @@ function createTaskCard(task) {
     .text('Delete')
     .attr('data-task-id', task.id);
   cardDeleteBtn.on('click', handleDeleteTask);
+
+  taskCard.append(cardHeader)
+  taskCard.append(cardBody)
+  taskCard.append(cardDescription)
+  taskCard.append(cardDueDate)
+  taskCard.append(cardDeleteBtn)
   if (task.dueDate && task.status !== 'done') {
     const now = dayjs();
     const taskDueDate = dayjs(task.dueDate, 'DD/MM/YYYY');
